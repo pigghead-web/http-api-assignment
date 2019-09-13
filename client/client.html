@@ -6,6 +6,49 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
+    // xhr handle function
+    const handleResponse = (xhr) => {
+        const content = document.querySelector("#content");
+        const object = JSON.parse(xhr.response);  // parse json->text
+        
+        // switch statement on xhr's status to display proper message
+        switch(xhr.status) {
+            case 200:
+                content.innerHTML = "<b>Success</b>";
+                break;
+            default:
+                content.innerHTML = "<b>Unimplemented code error</b>";
+                break;
+        }
+        
+        if(object.message) {
+            content.innerHTML += `<p>Message: ${object.message}`
+        }
+    };
+
+    // send ajax function
+    const sendAjax = (url) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.setRequestHeader("Accept", 'application/json');
+        
+        xhr.onload = () => handleResponse(xhr);
+        
+        xhr.send();
+    };
+
+    // request update func
+    const requestUpdate = (e, userForm) => {
+        const url = userForm.querySelector("#page").value;
+        const method = userForm.querySelector("#type").value;
+    };
+
+    // init function
+    const init = () => {
+        
+    };
+
+    window.onload = init();
 
   </script>
 </head>

@@ -1,0 +1,27 @@
+{
+  "name": "http-api-assignment-master",
+  "version": "1.0.0",
+  "description": "ArmstrongJ_HTTP-API-Assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pigghead-web/http-api-assignment.git"
+  },
+  "author": "Justin Armstrong",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/pigghead-web/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/pigghead-web/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
