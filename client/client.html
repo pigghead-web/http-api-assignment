@@ -26,6 +26,18 @@
         }
     };
 
+    // Parse the response
+    const parseJSON = (xhr, content) => {
+        const obj = JSON.parse(xhr.response);
+        console.dir(obj);
+        
+        if(obj.message){
+            const p = document.createElement('p');
+            p.textContent(`Message: ${obj.message}`);
+            content.appendChild(p);
+        }
+    };
+
     // send ajax function
     const sendAjax = (url) => {
         const xhr = new XMLHttpRequest();
@@ -38,14 +50,23 @@
     };
 
     // request update func
-    const requestUpdate = (e, userForm) => {
-        const url = userForm.querySelector("#page").value;
+    const requestUpdate = (e) => {
+        /*const url = userForm.querySelector("#page").value;
         const method = userForm.querySelector("#type").value;
+        console.log(url);
+        console.log(method);*/
+        
+        const pageSelect = document.querySelector("#page").text;
+        console.log(pageSelect);
     };
 
     // init function
     const init = () => {
+        const sendButton = document.querySelector("#send");
         
+        const getRequest = (e) => requestUpdate(e);
+        
+        sendButton.addEventListener('click', getRequest)
     };
 
     window.onload = init();

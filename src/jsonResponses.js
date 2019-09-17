@@ -14,6 +14,16 @@ const success = (request, response) => {
     respondJSON(request, response, 200, responseJSON);
 };
 
+const notFound = (request, response) => {
+    const responseJSON = {
+        message: "Page nout found",
+        id: "notFound"
+    }
+    
+    respondJSON(request, response, 404, responseJSON);
+}
+
 module.exports = {
     success,
+    notFound
 }
