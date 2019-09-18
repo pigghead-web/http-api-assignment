@@ -8,8 +8,38 @@
   <script type="text/babel">
     // xhr handle function
     const handleResponse = (xhr) => {
+        // grab the content-type header from the response
+        // informs us what the header actually responded 
+        const type = xhr.getResponseHeader('content-type');
+        
+        // grab the content section
         const content = document.querySelector("#content");
-        const object = JSON.parse(xhr.response);  // parse json->text
+        
+        // create an h2 and a p to contain the responses
+        const h2 = document.createElement('h2');  // this will contain the getRequest response (success, bad request, etc.,)
+        const p = document.createElement('p');  // this will contain the details of the getRequest response
+        
+        // application/json
+        if(type === 'application/json') {
+            // turn the xhr's response into a json object
+            const object = JSON.parse(xhr.response);
+            h2.textContent = `ID: ${object.id}`;
+            p.textContent = `MESSAGE: ${object.message}`;
+        }
+        // text/xml
+        else if (type === 'text/xml') {
+            // store the xhr id and message responses
+            const id = xhr.responseXML.querySelector('id').textContent;
+            const message = xhr.responseXML.querySelector('message').textContent;
+            
+            h2.textContent = `ID: ${id}`;
+            p.textContent = `MESSAGE: ${message}`;
+        }
+        
+        content.append(h2);
+        content.append(p);
+        
+        /*const object = JSON.parse(xhr.response);  // parse json->text
         
         // switch statement on xhr's status to display proper message
         switch(xhr.status) {
@@ -23,7 +53,7 @@
         
         if(object.message) {
             content.innerHTML += `<p>Message: ${object.message}`
-        }
+        }*/
     };
 
     // Parse the response
@@ -39,10 +69,11 @@
     };
 
     // send ajax function
-    const sendAjax = (url) => {
+    // acceptedType is for distinguishing between XML and json
+    const sendAjax = (url, acceptedType) => {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', url);
-        xhr.setRequestHeader("Accept", 'application/json');
+        xhr.setRequestHeader("Accept", acceptedType);
         
         xhr.onload = () => handleResponse(xhr);
         
