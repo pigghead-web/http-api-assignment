@@ -36,8 +36,10 @@
             p.textContent = `MESSAGE: ${message}`;
         }
         
-        content.append(h2);
-        content.append(p);
+        // instead of append, update
+        content.appendChild(h2);
+        content.appendChild(p);
+        parseJSON(xhr, content);
         
         /*const object = JSON.parse(xhr.response);  // parse json->text
         
@@ -61,46 +63,58 @@
         const obj = JSON.parse(xhr.response);
         console.dir(obj);
         
+        console.log(obj.message);
+        
         if(obj.message){
             const p = document.createElement('p');
-            p.textContent(`Message: ${obj.message}`);
-            content.appendChild(p);
+            p.textContent = (`Message: ${obj.message}`);
+            //content.appendChild(p);
         }
     };
 
     // send ajax function
     // acceptedType is for distinguishing between XML and json
     const sendAjax = (url, acceptedType) => {
+        // Create a new XML-http request
         const xhr = new XMLHttpRequest();
+        // pass a new 'GET' request to the requested url
         xhr.open('GET', url);
+        // set request to Accept with the requested type (xml or json)
         xhr.setRequestHeader("Accept", acceptedType);
         
+        // call our handle response function
         xhr.onload = () => handleResponse(xhr);
         
+        // send the xhr
         xhr.send();
     };
 
     // request update func
+    // This function ensures that the selected options are the parameters used  
+    // when making a new request (page leads to url, type retrieves either json or XML)
     const requestUpdate = (e) => {
-        /*const url = userForm.querySelector("#page").value;
-        const method = userForm.querySelector("#type").value;
-        console.log(url);
-        console.log(method);*/
+        const pageSelect = document.getElementById("page").value;
+        const typeSelect = document.getElementById("type").value;
         
-        const pageSelect = document.querySelector("#page option");
-        const xhr = XMLHttpRequest();
+        sendAjax(pageSelect, typeSelect);
+        
+        e.preventDefault();
+        return false;
+        // debug functionality to ensure button clicking is properly calling requestUpdate
+        //console.log(pageSelect);
     };
 
     // init function
     const init = () => {
+        // grab the button
         const sendButton = document.querySelector("#send");
-        
+        // create a reference to our requestUpdate function
         const getRequest = (e) => requestUpdate(e);
-        
+        // attach the requestUpdate function to our button
         sendButton.addEventListener('click', getRequest)
     };
 
-    window.onload = init();
+    window.onload = init();  // launch our initial function once the window is finished loading
 
   </script>
 </head>
