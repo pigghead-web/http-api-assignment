@@ -1,5 +1,5 @@
-// Modules for handling basic web server things
-const http = require('http');
+// Import modules for handling basic web server things
+const http = require('http');  // message handling / stream parsing
 const url = require('url');
 const query = require('querystring');
 
@@ -11,19 +11,27 @@ const jsonHandler = require('./jsonResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 // URL struct
+// Structure that contains all file paths
 const urlStruct = {
     '/' : htmlHandler.getIndex,
     '/style.css' : htmlHandler.getCss,
     '/success' : jsonHandler.success,
     '/badRequest' : jsonHandler.badRequest,
+    '/unauthorized' : jsonHandler.unauthorized,
+    '/forbidden' : jsonHandler.forbidden,
+    '/internal' : jsonHandler.interal,
+    '/notImplemented' : jsonHandler.notImplemented,
     notFound : jsonHandler.notFound,
 };
 
-// onRequest
+// onRequest -> Handle HTTP requests
 const onRequest = (request, response) => {
-    const parsedUrl = url.parse(request.url);
-    const params = query.parse(parsedUrl.query);
+    const parsedUrl = url.parse(request.url);  // parse the url via url module
+    // grab query parameters, whatever is to the right of '?=', and make them reusable
+    const params = query.parse(parsedUrl.query);  
+    //console.dir(params.valid);
     
+    // If our URL structure contains the pathname ( /name ), call that function
     if (urlStruct[parsedUrl.pathname]) {
         urlStruct[parsedUrl.pathname](request, response, params);
     } else {
