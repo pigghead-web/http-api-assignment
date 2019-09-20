@@ -33,44 +33,13 @@
             const id = xhr.responseXML.querySelector('id').textContent;
             const message = xhr.responseXML.querySelector('message').textContent;
             
-            h2.textContent = `ID: ${id}`;
+            h2.textContent = `id: ${id}`;
             p.textContent = `MESSAGE: ${message}`;
         }
         
         // instead of append, update
         content.appendChild(h2);
         content.appendChild(p);
-        parseJSON(xhr, content);
-        
-        /*const object = JSON.parse(xhr.response);  // parse json->text
-        
-        // switch statement on xhr's status to display proper message
-        switch(xhr.status) {
-            case 200:
-                content.innerHTML = "<b>Success</b>";
-                break;
-            default:
-                content.innerHTML = "<b>Unimplemented code error</b>";
-                break;
-        }
-        
-        if(object.message) {
-            content.innerHTML += `<p>Message: ${object.message}`
-        }*/
-    };
-
-    // Parse the response
-    const parseJSON = (xhr, content) => {
-        const obj = JSON.parse(xhr.response);
-        console.dir(obj);
-        
-        console.log(obj.message);
-        
-        if(obj.message){
-            const p = document.createElement('p');
-            p.textContent = (`Message: ${obj.message}`);
-            //content.appendChild(p);
-        }
     };
 
     // send ajax function
