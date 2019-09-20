@@ -1,6 +1,10 @@
-// In comparison to respondJSON -- content is what the response will actually contain (JSON object or XML text response), and type is the type of response (text/xml or application/json)
+// In comparison to respondJSON -- content is what the
+// response will actually contain
+// (JSON object or XML text response), and type is the
+// type of response (text/xml or application/json)
 const respond = (request, response, status, content, type) => {
-  // pass in our status and our accepted type, both of which can vary in this application as compared to previous examples
+  // pass in our status and our accepted type,
+  // both of which can vary in this application as compared to previous examples
   response.writeHead(status, { 'Content-Type': type });
   // typically we would stringify a json object, however this will also vary
   response.write(content);
