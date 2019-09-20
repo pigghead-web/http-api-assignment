@@ -2,8 +2,8 @@
   "name": "http-api-assignment-master",
   "version": "1.0.0",
   "engines": {
-      "node": 10.16.0,
-      "npm": 6.9.0,
+      "node": "10.16.0",
+      "npm": "6.9.0"
   },
   "description": "ArmstrongJ_HTTP-API-Assignment",
   "main": "server.js",
