@@ -9,8 +9,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
-      "pretest": "eslint ./src --fix",
-      "test": "echo \"No tests\"" 
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"No tests\"" 
   },
   "repository": {
     "type": "git",
